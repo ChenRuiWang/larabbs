@@ -44,7 +44,15 @@ class VerificationCodesController extends Controller
                 return $this->response->errorInternal($message ?? '短信发送异常');
             }
         }
-
+        // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa0bb5f321f4625bf&redirect_uri=http://larabbs.test&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+        // https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxa0bb5f321f4625bf&secret=a881f6191a14209b90c0dbe48dd41838&code=071FjvLI1Btsc60LAEMI1XGBLI1FjvL0&grant_type=authorization_code
+        // https://api.weixin.qq.com/sns/userinfo?access_token=12_lQPnOm6vZ_ZknxRVPlyihzMK3E-6n62Y7yGjIXxNP2mCdbs4fiEF9tiY1Qp6xv50ZbO4EE30zO9mkVn56PmvCg&openid=oSfmy0_7vLm1CmCJj_MGsbR_vUuk&lang=zh_CN
+$accessToken = '13_1WV0TrygJSt12UyAmGg4KNdboiW6H5DOSRCngdoh7fXh5G3LW4lBNWeEzZHwwAwnkV3Z82pL-XdZeKZpFdcBrg';
+$openID = 'oSfmy0_7vLm1CmCJj_MGsbR_vUuk';
+$driver = Socialite::driver('weixin');
+$driver->setOpenId($openID);
+$oauthUser = $driver->userFromToken($accessToken);
+        061cEz6p1fGB0r0xT18p1F1v6p1cEz6W
         $key = 'verificationCode_'.str_random(15);
         $expiredAt = now()->addMinutes(10);
         // 缓存验证码 10分钟过期
