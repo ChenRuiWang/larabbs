@@ -27,6 +27,7 @@ $api->version('v1', [
         // 游客可以访问的接口
         // 分类列表
         $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
+        $api->get('topics', 'TopicsController@index')->name('api.topics.index');
         // 短信验证码
         $api->post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
         // 用户注册
@@ -51,8 +52,10 @@ $api->version('v1', [
             // 发布话题
             $api->post('topics', 'TopicsController@store')->name('api.topics.store');
             $api->patch('topics/{topic}', 'TopicsController@update')->name('api.topics.update');
+            $api->delete('topics/{topic}', 'TopicsController@destroy')->name('api.topics.destroy');
             // 编辑登录用户信息
             $api->patch('user', 'UsersController@update')->name('api.user.update');
+
         });
     });
 
